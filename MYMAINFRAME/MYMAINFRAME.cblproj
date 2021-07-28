@@ -1,0 +1,66 @@
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProjectGuid>{EB82B495-9EA4-49A5-B6D6-B9138CAD05FD}</ProjectGuid>
+    <ProjectTypeGuids>{6710734B-1D50-4f99-AF91-F73BB8168F21};{535C04D7-A2A5-47c7-83E0-B340A995CD1F}</ProjectTypeGuids>
+    <OutputName>MYMAINFRAME</OutputName>
+    <OutputType>Library</OutputType>
+    <RootNamespace>MYMAINFRAME</RootNamespace>
+    <LinkMultiDlls>true</LinkMultiDlls>
+    <MFProjectType>Native</MFProjectType>
+    <COBOLDir>False</COBOLDir>
+    <MFDependencyPaths>C:\MFETDUSER\OTHERS\CPY</MFDependencyPaths>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>.\bin\x86\Debug\</OutputPath>
+    <PlatformTarget>x86</PlatformTarget>
+    <ManagedCode>False</ManagedCode>
+    <MaxError>100</MaxError>
+    <Dialect>OS390</Dialect>
+    <Charset>EBCDIC</Charset>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <DebugSymbols>false</DebugSymbols>
+    <OutputPath>.\bin\x86\Release\</OutputPath>
+    <PlatformTarget>x86</PlatformTarget>
+    <ManagedCode>False</ManagedCode>
+    <MaxError>100</MaxError>
+    <Dialect>ENTCOBOL</Dialect>
+    <Charset>EBCDIC</Charset>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="CBL\acct00.cbl">
+      <CICSECM>CICSECM()</CICSECM>
+    </Compile>
+    <Compile Include="CBL\acct01.cbl">
+      <CICSECM>CICSECM()</CICSECM>
+    </Compile>
+    <Compile Include="CBL\acct02.cbl">
+      <CICSECM>CICSECM()</CICSECM>
+    </Compile>
+    <Compile Include="CBL\acct03.cbl">
+      <CICSECM>CICSECM()</CICSECM>
+    </Compile>
+    <Compile Include="CBL\acct04.cbl">
+      <CICSECM>CICSECM()</CICSECM>
+    </Compile>
+    <Compile Include="CBL\JCLCreat.cbl" />
+    <Compile Include="CBL\JCLRead.cbl" />
+  </ItemGroup>
+  <ItemGroup>
+    <BmsFile Include="BMS\acctset.bms" />
+  </ItemGroup>
+  <ItemGroup>
+    <JCLFile Include="JCL\ESJCL.jcl" />
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Micro Focus\Visual COBOL\v1.0\MicroFocus.COBOL.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

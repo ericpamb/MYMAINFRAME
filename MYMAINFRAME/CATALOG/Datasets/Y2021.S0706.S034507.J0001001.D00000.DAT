@@ -1,0 +1,67 @@
+     *-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
+     *-*-*  Micro Focus ESJCL  EBCDIC JES2 Version ED6.0_006                                   *-*-*
+     *-*-*  Copyright (C) Micro Focus 1997-2019. All rights reserved.                          *-*-*
+     *-*-*  Job: 0001001 Name: JCLTEST  User: JESUSER  Date: 07/06/21 Time: 03:45:07           *-*-*
+     *-*-*  File: $TXRFDIR/T000000013.T                                                        *-*-*
+     *-*-*  DSN:                                                                               *-*-*
+     *-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
+
+   1 //JCLTEST JOB 'JCL TEST',CLASS=B,MSGCLASS=A
+   2 //*
+   3 //* DELETE EXISTING DATASETS
+   4 //*
+   5 //GETRID   EXEC PGM=IDCAMS
+   6 //SYSPRINT DD SYSOUT=*
+   7 //SYSIN    DD *
+  10 //*
+  11 //* ALLOCATE AND WRITE RECORDS TO A DATASET FROM A USER PROGRAM
+  12 //*
+  13 //CREATE   EXEC PGM=JCLCREAT
+  14 //OUTFILE  DD DSN=MFIJCL.OUTFILE.DATA,DISP=(,CATLG),
+  15 //         DCB=(LRECL=80,RECFM=FB,DSORG=PS),
+  16 //         SPACE=(800,(10,10)),UNIT=SYSDA
+  17 //SYSOUT   DD SYSOUT=A
+  18 //*
+  19 //* USE THE IEBGENER SYSTEM UTILITY TO COPY RECORDS INTO A TEMPORARY
+  20 //* DATASET AND PASS ON FOR USE BY SUBSEQUENT STEPS
+  21 //*
+  22 //GENER    EXEC PGM=IEBGENER
+  23 //SYSPRINT DD SYSOUT=*
+  24 //SYSUT1   DD *
+  30 //SYSUT2   DD DSN=&&JTEMP,DISP=(,PASS),
+  31 //         DCB=(LRECL=80,RECFM=FB,DSORG=PS),
+  32 //         SPACE=(800,(10,10)),UNIT=SYSDA
+  33 //*
+  34 //* READ RECORDS FROM THE TEMPORARY DATASET CREATED IN THE PREVIOUS
+  35 //* STEP
+  36 //*
+  37 //READ     EXEC PGM=JCLREAD
+  38 //INFILE   DD DSN=&JTEMP,DISP=(OLD,DELETE)
+  39 //SYSOUT   DD SYSOUT=A
+  40 //
+**** JCLCM0180I Job ready for execution.
+**** Execution on Server MYMAINFM  Process       7532
+
+     03:45:08 JCLCM0188I JOB  STARTED
+
+     03:45:08 JCLCM0190I STEP STARTED   GETRID
+     03:45:09 JCLCM0199I Program MFJAMS   is COBOL       ASCII  Big-Endian    NOAMODE.
+     Y2021.S0706.S034507.J0001001.D00001.SYSPRINT                      SYSPRINT
+      C:\MFETDUSER\OTHERS\PROJECTS\MYM*07.J0001001.D00001.SYSPRINT.DAT  SPOOLED
+     Y2021.S0706.S034507.J0001001.D00002.SYSIN                         SYSIN
+      C:\MFETDUSER\OTHERS\PROJECTS\MYM*34507.J0001001.D00002.SYSIN.DAT  DELETED
+---> 03:45:09 JCLCM0191I STEP ENDED     GETRID - COND CODE 0000
+
+     03:45:09 JCLCM0190I STEP STARTED   CREATE
+     03:45:11 JCLCM0199I Program JCLCREAT is COBOL VSC2  EBCDIC Big-Endian    NOAMODE.
+     MFIJCL.OUTFILE.DATA                                               OUTFILE
+      C:\MFETDUSER\OTHERS\PROJECTS\MYM*ATASETS\MFIJCL.OUTFILE.DATA.DAT  CATALOGED
+     Y2021.S0706.S034507.J0001001.D00003.SYSOUT                        SYSOUT
+      C:\MFETDUSER\OTHERS\PROJECTS\MYM*4507.J0001001.D00003.SYSOUT.DAT  REMOVED
+==>> 03:45:41 JCLCM0192S STEP ABENDED   CREATE - COND CODE S222
+
+---> 03:45:41 JCLCM0189I STEP BYPASSED  GENER
+
+---> 03:45:41 JCLCM0189I STEP BYPASSED  READ
+
+==>> 03:45:41 JCLCM0181S JOB  ABENDED - COND CODE S222
